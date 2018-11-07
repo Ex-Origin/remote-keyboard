@@ -273,7 +273,7 @@ while (True):
     while (True):
 
         msgs = clientsocket.recv(SOCKET_MAX).decode('utf-8')
-        print(time.strftime("%H:%M:%S    ",time.localtime())+msg)
+        print(time.strftime("%H:%M:%S    ",time.localtime())+msgs)
         msgs='['+msgs[:-1]+']'
         if(data_analysis(msgs)==False):
             clientsocket.close()
