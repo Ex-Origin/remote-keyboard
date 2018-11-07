@@ -23,6 +23,8 @@ scroll_times=40
 SOCKET_MAX=60000
 SEGMENT=10000
 
+mouse_sensitivity=2
+
 #for exit
 end=Key.f3
 
@@ -78,7 +80,7 @@ def on_move(x, y):
     x=x-default_x
     y=y-default_y
 
-    if(x==0 and y==0):
+    if(abs(x) < mouse_sensitivity and abs(y) < mouse_sensitivity):
         return
 
     data['x']=x
