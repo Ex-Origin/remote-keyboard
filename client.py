@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
 import socket
 import time
 from pynput import keyboard
@@ -5,6 +8,7 @@ from pynput.keyboard import Key, Controller
 import json
 k=Controller()
 
+#for exit
 end=Key.f3
 
 # 创建 socket 对象
@@ -36,7 +40,7 @@ def on_press(key):
         data['key']=str(key).replace("'","")
 
         msg = json.dumps(data)
-        print(time.strftime("%H:%M:%S    ",time.localtime())+msg)
+        print(time.strftime("    %H:%M:%S    ",time.localtime())+msg)
         msg=msg.encode('utf-8')
         s.send(msg)
         
@@ -51,7 +55,7 @@ def on_release(key):
     data['key']=str(key).replace("'","")
 
     msg = json.dumps(data)
-    print(time.strftime("%H:%M:%S    ",time.localtime())+msg)
+    print(time.strftime("    %H:%M:%S    ",time.localtime())+msg)
     msg=msg.encode('utf-8')
     s.send(msg)
 
