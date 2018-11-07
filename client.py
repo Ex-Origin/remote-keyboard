@@ -16,7 +16,7 @@ import _thread
 from pyperclip import *
 
 default_x=800
-default_y=800
+default_y=600
 
 scroll_times=40
 
