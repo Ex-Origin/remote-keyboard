@@ -12,9 +12,19 @@ m=Controller()
 
 import json
 import _thread
+import sys
 
 from pyperclip import *
+import getopt
 
+#for close the mouse monitor
+try:  
+    opts, args = getopt.getopt(sys.argv[1:], "cm", ["help"])  
+except getopt.GetoptError:  
+    print('Args error')
+    exit(-1)
+
+default_host="192.168.3.30"
 default_x=800
 default_y=600
 
@@ -35,8 +45,17 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 port = 9999
 
 # 连接服务，指定主机和端口
-s.connect(("192.168.3.30", port))
+if(len(args)>0):
+    host=args[0]
+    s.connect((host, port))
+else:
+    s.connect((default_host,port))
 
+def analyze_opts(opts,opt):
+    for o,a in opts:
+        if (o==opt):
+            return a
+    return False
 
 def on_press(key):
 
@@ -196,8 +215,11 @@ if(__name__=='__main__'):
 
 
     try:
-        _thread.start_new_thread( listen_mouse, ( ) )
-        _thread.start_new_thread( wait_clipboard, ( ) )
+        if(analyze_opts(opts,"-m")==False):
+            _thread.start_new_thread( listen_mouse, ( ) )
+
+        if(analyze_opts(opts,"-c")==False):
+            _thread.start_new_thread( wait_clipboard, ( ) )
     except:
         print ("Error: 无法启动线程")
 
