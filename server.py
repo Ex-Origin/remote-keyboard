@@ -16,8 +16,8 @@ import _thread
 
 from pyperclip import *
 
-SOCKET_MAX=60000
-SEGMENT=10000
+SOCKET_MAX=4096
+SEGMENT=1000
 
 # 创建 socket 对象
 serversocket = socket.socket(

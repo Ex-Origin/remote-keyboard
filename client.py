@@ -30,8 +30,8 @@ default_y=600
 
 scroll_times=40
 
-SOCKET_MAX=60000
-SEGMENT=10000
+SOCKET_MAX=4096
+SEGMENT=1000
 
 mouse_sensitivity=2
 
@@ -152,9 +152,16 @@ def listen_mouse():
 def wait_clipboard():
     new=''
     while (True):
-        msg=s.recv(SOCKET_MAX).decode('utf-8')
-        print(time.strftime("    %H:%M:%S    ",time.localtime())+msg)
-        data = json.loads(msg[:-1])
+        
+        msg=''
+        while (True):
+            msg+=s.recv(SOCKET_MAX).decode('utf-8')
+            print(time.strftime("    %H:%M:%S    ",time.localtime())+msg)
+            try:
+                data = json.loads(msg[:-1])
+                break
+            except json.decoder.JSONDecodeError as e:
+                pass
 
         if(data['type']=='clipboard'):
             if(data['is_end']=='false'):
